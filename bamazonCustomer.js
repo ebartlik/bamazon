@@ -30,107 +30,636 @@ connection.connect(function(err) {
       
           // Log all results of the SELECT statement
           console.log(res);
-          connection.end();
+        //   connection.end();
         });
     }
         function initialize() {
             inquirer.prompt({
                 type: 'rawlist',
-                name: 'action',
+                name: 'product_id',
                 message: 'Which product ID would you like to purchase?',
                 choices: 
-                ['ID:1', 
-                'ID:2',
-                'ID:3',
-                'ID:4',
-                'ID:5',
-                'ID:6',
-                'ID:7',
-                'ID:8',
-                'ID:9',
-                'ID:10',
+                ['1', 
+                '2',
+                '3',
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                '10',
                 ]
               })
               
               .then(function(answer) {
-                switch (answer.action) {
-                case 'ID:1':
+                switch (answer.product_id) {
+                case '1':
                   idOne();
                   break;
 
-                case 'ID:2':
-                idTwo();
-                break;
-                
-                case 'ID:2':
+                case '2':
                 idTwo();
                 break;
 
-                case 'ID:3':
+                case '3':
                 idThree();
                 break;
 
-                case 'ID:4':
+                case '4':
                 idFour();
                 break;
 
-                case 'ID:2':
-                idTwo();
+                case '5':
+                idFive();
                 break;
 
-                case 'ID:2':
-                idTwo();
+                case '6':
+                idSix();
                 break;
 
-                case 'ID:2':
-                idTwo();
+                case '7':
+                idSeven();
                 break;
 
-                case 'ID:2':
-                idTwo();
+                case '8':
+                idEight();
                 break;
 
-                case 'ID:2':
-                idTwo();
+                case '9':
+                idNine();
+                break;
+
+                case '10':
+                idTen();
                 break;
               
                 }
 
             });
         
-        } 
+        }
 
         function idOne() {
             inquirer
               .prompt([
 
               {
-                name: "quantity",
+                name: "stock_quantity",
                 type: "input",
                 message: "How many would you like to purchase?",
                 validate: function(value) {
                     if (isNaN(value) === false) {
                       return true;
+
+                    
                     }
                     return false;
                 }
             
             }
         ])
-        .then(function(answer) {
-            var query = "SELECT product_name, stock_quantity FROM products WHERE product_id = 1";
-            connection.query(query, { quantity: answer.quantity }, function(err, res) {
-                for (var i = 0; i < res.length; i++) {
-                    console.log("Product: " + res[i].product_name + " || Quantity Left: " + res[i].stock_quantity);
-                  }
+         .then(function(answer) {
+            // console.log(answer.id);
+            connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                for (var i = 0; i<res.length; i++){
 
-                  if(res[i].stock_quantity > answer,quantity){
-                      console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
-                  }
-                   initialize();
-                });
-              });
-          }
+                console.log(res);
+                console.log(
+                    "Product Name: " +
+                      res[i].product_name + "" +
+                      "Left in stock: "+
+                      res[i].stock_quantity
+
+                      //get response for product name and quantity left
+                
+                    );
+                    if(res[i].stock_quantity < answer.stock_quantity){
+                       console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                         }     //           }
+                 
+                
+                        }      
+            // initialize();
+            });
+        });
+        
+        
+    
+
+    
+    }
+
+    function idTwo() {
+        inquirer
+          .prompt([
+
+          {
+            name: "stock_quantity",
+            type: "input",
+            message: "How many would you like to purchase?",
+            validate: function(value) {
+                if (isNaN(value) === false) {
+                  return true;
+
+                
+                }
+                return false;
+            }
+        
+        }
+    ])
+     .then(function(answer) {
+        // console.log(answer.id);
+        connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            for (var i = 0; i<res.length; i++){
+
+            console.log(res);
+            console.log(
+                "Product Name: " +
+                  res[i].product_name + "" +
+                  "Left in stock: "+
+                  res[i].stock_quantity
+
+                  //get response for product name and quantity left
+            
+                );
+                if(res[i].stock_quantity < answer.stock_quantity){
+                   console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                     }     //           }
+             
+            
+                    }      
+        // initialize();
+        });
+    });
+    
+    
+
+
+
+}
+
+function idThree() {
+    inquirer
+      .prompt([
+
+      {
+        name: "stock_quantity",
+        type: "input",
+        message: "How many would you like to purchase?",
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+
+            
+            }
+            return false;
+        }
+    
+    }
+])
+ .then(function(answer) {
+    // console.log(answer.id);
+    connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        for (var i = 0; i<res.length; i++){
+
+        console.log(res);
+        console.log(
+            "Product Name: " +
+              res[i].product_name + "" +
+              "Left in stock: "+
+              res[i].stock_quantity
+
+              //get response for product name and quantity left
+        
+            );
+            if(res[i].stock_quantity < answer.stock_quantity){
+               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                 }     //           }
+         
+        
+                }      
+    // initialize();
+    });
+});
+
+
+
+
+
+}
+
+function idFour() {
+    inquirer
+      .prompt([
+
+      {
+        name: "stock_quantity",
+        type: "input",
+        message: "How many would you like to purchase?",
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+
+            
+            }
+            return false;
+        }
+    
+    }
+])
+ .then(function(answer) {
+    // console.log(answer.id);
+    connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        for (var i = 0; i<res.length; i++){
+
+        console.log(res);
+        console.log(
+            "Product Name: " +
+              res[i].product_name + "" +
+              "Left in stock: "+
+              res[i].stock_quantity
+
+              //get response for product name and quantity left
+        
+            );
+            if(res[i].stock_quantity < answer.stock_quantity){
+               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                 }     //           }
+         
+        
+                }      
+    // initialize();
+    });
+});
+
+
+
+
+
+}
+
+function idFive() {
+    inquirer
+      .prompt([
+
+      {
+        name: "stock_quantity",
+        type: "input",
+        message: "How many would you like to purchase?",
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+
+            
+            }
+            return false;
+        }
+    
+    }
+])
+ .then(function(answer) {
+    // console.log(answer.id);
+    connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        for (var i = 0; i<res.length; i++){
+
+        console.log(res);
+        console.log(
+            "Product Name: " +
+              res[i].product_name + "" +
+              "Left in stock: "+
+              res[i].stock_quantity
+
+              //get response for product name and quantity left
+        
+            );
+            if(res[i].stock_quantity < answer.stock_quantity){
+               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                 }     //           }
+         
+        
+                }      
+    // initialize();
+    });
+});
+
+
+
+
+
+}
+
+function idSix() {
+    inquirer
+      .prompt([
+
+      {
+        name: "stock_quantity",
+        type: "input",
+        message: "How many would you like to purchase?",
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+
+            
+            }
+            return false;
+        }
+    
+    }
+])
+ .then(function(answer) {
+    // console.log(answer.id);
+    connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        for (var i = 0; i<res.length; i++){
+
+        console.log(res);
+        console.log(
+            "Product Name: " +
+              res[i].product_name + "" +
+              "Left in stock: "+
+              res[i].stock_quantity
+
+              //get response for product name and quantity left
+        
+            );
+            if(res[i].stock_quantity < answer.stock_quantity){
+               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                 }     //           }
+         
+        
+                }      
+    // initialize();
+    });
+});
+
+
+
+
+
+}
+
+function idSeven() {
+    inquirer
+      .prompt([
+
+      {
+        name: "stock_quantity",
+        type: "input",
+        message: "How many would you like to purchase?",
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+
+            
+            }
+            return false;
+        }
+    
+    }
+])
+ .then(function(answer) {
+    // console.log(answer.id);
+    connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        for (var i = 0; i<res.length; i++){
+
+        console.log(res);
+        console.log(
+            "Product Name: " +
+              res[i].product_name + "" +
+              "Left in stock: "+
+              res[i].stock_quantity
+
+              //get response for product name and quantity left
+        
+            );
+            if(res[i].stock_quantity < answer.stock_quantity){
+               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                 }     //           }
+         
+        
+                }      
+    // initialize();
+    });
+});
+
+
+
+
+
+}
+
+function idEight() {
+    inquirer
+      .prompt([
+
+      {
+        name: "stock_quantity",
+        type: "input",
+        message: "How many would you like to purchase?",
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+
+            
+            }
+            return false;
+        }
+    
+    }
+])
+ .then(function(answer) {
+    // console.log(answer.id);
+    connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        for (var i = 0; i<res.length; i++){
+
+        console.log(res);
+        console.log(
+            "Product Name: " +
+              res[i].product_name + "" +
+              "Left in stock: "+
+              res[i].stock_quantity
+
+              //get response for product name and quantity left
+        
+            );
+            if(res[i].stock_quantity < answer.stock_quantity){
+               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                 }     //           }
+         
+        
+                }      
+    // initialize();
+    });
+});
+
+
+
+
+
+}
+
+function idNine() {
+    inquirer
+      .prompt([
+
+      {
+        name: "stock_quantity",
+        type: "input",
+        message: "How many would you like to purchase?",
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+
+            
+            }
+            return false;
+        }
+    
+    }
+])
+ .then(function(answer) {
+    // console.log(answer.id);
+    connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        for (var i = 0; i<res.length; i++){
+
+        console.log(res);
+        console.log(
+            "Product Name: " +
+              res[i].product_name + "" +
+              "Left in stock: "+
+              res[i].stock_quantity
+
+              //get response for product name and quantity left
+        
+            );
+            if(res[i].stock_quantity < answer.stock_quantity){
+               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                 }     //           }
+         
+        
+                }      
+    // initialize();
+    });
+});
+
+
+
+
+
+}
+
+function idTen() {
+    inquirer
+      .prompt([
+
+      {
+        name: "stock_quantity",
+        type: "input",
+        message: "How many would you like to purchase?",
+        validate: function(value) {
+            if (isNaN(value) === false) {
+              return true;
+
+            
+            }
+            return false;
+        }
+    
+    }
+])
+ .then(function(answer) {
+    // console.log(answer.id);
+    connection.query("SELECT * FROM products WHERE ?", { product_id: answer.product_id }, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        for (var i = 0; i<res.length; i++){
+
+        console.log(res);
+        console.log(
+            "Product Name: " +
+              res[i].product_name + "" +
+              "Left in stock: "+
+              res[i].stock_quantity
+
+              //get response for product name and quantity left
+        
+            );
+            if(res[i].stock_quantity < answer.stock_quantity){
+               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+                 }     //           }
+         
+        
+                }      
+    // initialize();
+    });
+});
+
+
+
+
+
+}
+
+
+
+      // initialize();
+
+   
+//     // var query = "SELECT product_name, stock_quantity FROM products WHERE ?";
+        //     connection.query("SELECT stock_quantity FROM products WHERE product_name = Fire Stick"), function(err, res) {
+        //     // connection.query(query, { id: answer.id }, function(err, res) {
+        //         // for (var i = 0; i < res.length; i++) {
+        //             console.log( " Quantity Left: " + stock_quantity);
+        //          // }
+
+        //           if(stock_quantity < answer.quantity){
+        //               console.log("We only have" + res[i].stock_quantity + " left, please select a different quantity");
+        //           }
+                
+                //    initialize();
+            //}
+             // });
+           // }
         
                 
             
@@ -139,5 +668,9 @@ connection.connect(function(err) {
           
           
     
-      
-            
+
+     
+    
+
+
+        
